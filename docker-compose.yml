@@ -1,0 +1,48 @@
+version: '2.1'
+
+services:
+  eureka-server:
+    build: eureka-server
+    mem_limit: 512m
+    ports:
+      - "8761:8761"
+    networks:
+      - 'portfolio-network'
+  products-service:
+    build: products-service
+    mem_limit: 512m
+    ports:
+      - "8081:8081"
+    networks:
+      - 'portfolio-network'
+  shoppingcarts-service:
+    build: shoppingcarts-service
+    mem_limit: 512m
+    ports:
+      - "8082:8082"
+    networks:
+      - 'portfolio-network'
+  sales-service:
+    build: sales-service
+    mem_limit: 512m
+    ports:
+      - "8083:8083"
+    networks:
+      - 'portfolio-network'
+  api-gateway:
+    build: api-gateway
+    mem_limit: 512m
+    ports:
+      - "443:443"
+    networks:
+      - 'portfolio-network'
+  db:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: lautaro      
+
+
+networks:
+  portfolio-network:    
